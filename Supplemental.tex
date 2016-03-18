@@ -44,8 +44,8 @@
 
 \maketitle
 
-\section{Composite portions for training}
-We observe performance of our method when training with different portions of the data. We report results when learning on 10\%, 30\% and 50\% of the composites, as shown in Figure~\ref{fig:learning_portions}. We further verify result consistency by pruning composites with less training examples than a certain threshold. We plot performance as a function of this threshold. In the Scene-Attribute classification experiment we achieve results comparable to cross validation results with using as little as 10\% of the composites, while bigger portions has little contribution to performance. In the Object-Attribute detection experiment we achieve cross-validation performance when using 30\% of the composites to train our regressor. A similar trend is observed in the Object-Relationship experiment.
+\section{Performance as function of training composites}
+We observe performance of our method when training with different portions of the data. We report results when learning on 10\%, 30\% and 50\% of the composites, as shown in Figure~\ref{fig:learning_portions}. We further verify result consistency by pruning composites with less training examples than a certain threshold. We plot performance as a function of this threshold. In the Scene-Attribute classification experiment (left set of 3 plots) we achieve results comparable to cross validation performance using as little as 10\% of the composites; training with bigger portion of the data led to little further improvements. In the Object-Attribute detection experiment (right set of 3 plots) we achieve close to cross-validation performance when using 30\% of the composites to train our regressor. A similar trend is observed in the Object-Relationship experiment (not shown).
 
 
 
@@ -54,16 +54,17 @@ We observe performance of our method when training with different portions of th
     \subfloat{{\includegraphics[width=5cm]{att_scene_multiple_partitions.png} }}%
     \qquad
     \subfloat{{\includegraphics[width=5cm]{obj_att_multiple_partitions.png} }}%
-    \caption{Performance given different fraction of composites used for learning. Scene-attributes on SUN  (left) and object-attribute for SceneGraph dataset (right) are illustrated. Our model approaches cross-validation performance with only a fraction (0.1) of scene-attribute and (0.3) object-attribute composites.}%
+    \caption{{\bf Performance for different fraction of composites used for learning:} Illustrated  are scene-attribute performance on SUN  (left) and object-attribute perfromance for SceneGraph dataset (right). Our model approaches cross-validation performance with only a fraction (0.1) or 10\% of scene-attribute and (0.3) or 30\% of object-attribute composites.}%
     \label{fig:learning_portions}%
+    \vspace{-0.2in}
 \end{figure}
 
 
 \section{Learned weights}
-The assumption that each dataset consists unique patterns for optimal strategy selection stands in the base of our data driven approach. However, we observe similar trends in learned weights for different experiments and datasets, demonstrated in figure~\ref{fig:learned_weights}. For example, large median value of pairwise distance ($\mathbf{f_4}$) has a dominant positive value, tends to lead to joint strategy selection, whereas large mean pairwise distance ($\mathbf{f_5}$) has the opposite effect. Some intuition for this trend is given on the rightmost plot, showing the effect of the above feature values on our selection. Also note that for each composite we concatenate features collected from different composite parts to obtain our vector representation.
+The assumption that each dataset may contain unique patterns for optimal strategy selection stands at the core of our approach. However, that said, we have observed somewhat similar trends in learned weights for different experiments and datasets, as is demonstrated in Figure~\ref{fig:learned_weights}. For example, large median value of pairwise distance ($\mathbf{f_4}$) tends to lead to joint strategy selection, whereas large mean pairwise distance ($\mathbf{f_5}$) has the opposite effect. Some intuition for this trend is given on the rightmost plot, showing the effect of the above feature values on our selection. Also note that for each composite we concatenate features collected from different composite parts to obtain our vector representation.
 
 \section{SceneGraph retrieval qualitative results}
-We visualize object localization performance by plotting grounded object locations and comparing to ground truth annotations. We use graphs that are either fully independent, fully joint, or partly joint(when the configuration is selected by our model prediction). Effective selection of joint object configuration (object+attribute,object+relationship) made by our model provides more accurate detectors. These detectors in turn output better confidence scores used as the unary terms in the graph problem, leading to a better solution, as visualized in fig~\ref{fig:scene_graph_retrieval}. 
+We also visualize additional examples for SceneGraph retrieval. We visualize object localization performance by plotting grounded object locations, obtained using CRF inference (see main paper for description) and comparing to ground truth annotations. We use graphs where each object is trained fully independently, fully jointly, or partly jointly (when the joint configuration is selected by our model prediction). Effective selection of joint object configuration (object+attribute, object+relationship) made by our model provides more accurate detectors. These detectors in turn output better confidence scores used as the unary terms in the CRF inference, leading to a better solution overall, as visualized in Figure~\ref{fig:scene_graph_retrieval}. 
 
 
 \begin{figure}[t]
